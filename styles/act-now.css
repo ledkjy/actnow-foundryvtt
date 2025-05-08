@@ -1,0 +1,15 @@
+.act-now-button {
+    margin-top: 5px;
+    width: 100%;
+    background-color: #d62728;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .act-now-button:hover {
+    background-color: #a61c1c;
+  }
+  

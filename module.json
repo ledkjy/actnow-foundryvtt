@@ -1,0 +1,18 @@
+{
+    "name": "actnow-foundryvtt",
+    "title": "Act Now Button",
+    "description": "Adds a chat button for players to signal they want to act. Notifies all users, with GM control over closing the prompt.",
+    "version": "1.0.0",
+    "author": "Your Name",
+    "esmodules": [],
+    "scripts": ["scripts/actnow-foundryvtt.js"],
+    "styles": ["styles/actnow-foundryvtt.css"],
+    "languages": [],
+    "packs": [],
+    "minimumCoreVersion": "11",
+    "compatibleCoreVersion": "11",
+    "url": "https://github.com/ledkjy/actnow-foundryvtt",
+    "manifest": "https://raw.githubusercontent.com/ledkjy/actnow-foundryvtt/main/module.json",
+    "download": "https://github.com/ledkjy/actnow-foundryvtt/releases/download/v1.0.0/actnow-foundryvtt.zip"
+  }
+  
