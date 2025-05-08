@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "author": "ledkjy",
   "minimumCoreVersion": "11",
-  "compatibleCoreVersion": "11",
+  "compatibleCoreVersion": "12",
   "scripts": ["scripts/act-now.js"],
   "styles": ["styles/act-now.css"],
   "esmodules": [],
