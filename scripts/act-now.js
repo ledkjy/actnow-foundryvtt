@@ -1,4 +1,24 @@
+let currentPopup = null;
+
+Hooks.once('init', () => {
+  console.log("ActNow | Initializing module");
+});
+
+Hooks.once('ready', () => {
+  console.log("ActNow | Ready");
+
+  // Set up socket listener
+  game.socket.on('module.actnow-foundryvtt', async (data) => {
+    if (data.type === "requestActNow") {
+      showActNowPopup(data.user);
+    } else if (data.type === "closeActNow") {
+      closeActNowPopup();
+    }
+  });
+});
+
 Hooks.on('renderChatLog', (app, html, data) => {
+  // Prevent double injection
   if (html.find('.act-now-button').length) return;
 
   const button = $(`
@@ -16,26 +36,13 @@ Hooks.on('renderChatLog', (app, html, data) => {
     });
   });
 
-  // Find the chat control area and append the button
+  // Add button to the chat controls area
   const controls = html.closest(".app").find(".chat-controls .control-buttons");
   controls.append(button);
 });
 
-let currentPopup = null;
-
-Hooks.once('ready', () => {
-  // Socket listener
-  game.socket.on('module.actnow-foundryvtt', async (data) => {
-    if (data.type === "requestActNow") {
-      showActNowPopup(data.user);
-    } else if (data.type === "closeActNow") {
-      closeActNowPopup();
-    }
-  });
-});
-
 function showActNowPopup(username) {
-  // Avoid showing multiple popups if already open
+  // Prevent duplicate dialogs
   if (currentPopup) return;
 
   const content = `
@@ -56,7 +63,7 @@ function showActNowPopup(username) {
           closeActNowPopup();
         });
 
-        // Handle Enter key
+        // Listen for Enter key to close
         html.closest(".app").on("keydown", (e) => {
           if (e.key === "Enter") {
             game.socket.emit('module.actnow-foundryvtt', { type: "closeActNow" });
