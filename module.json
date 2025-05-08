@@ -3,7 +3,7 @@
   "title": "Act Now Button",
   "description": "Adds a chat button for players to signal they want to act. GM sees and controls the popup.",
   "version": "1.0.0",
-  "author": "Your Name",
+  "author": "ledkjy",
   "minimumCoreVersion": "11",
   "compatibleCoreVersion": "11",
   "scripts": ["scripts/act-now.js"],
