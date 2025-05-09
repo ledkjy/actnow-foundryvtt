@@ -2,7 +2,7 @@
   "name": "actnow-foundryvtt",
   "title": "Act Now!",
   "description": "Adds a chat button for players to signal they want to act. GM sees and controls the popup.",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "author": "ledkjy",
   "minimumCoreVersion": "11",
   "compatibleCoreVersion": "12",
@@ -13,5 +13,5 @@
   "packs": [],
   "url": "https://github.com/ledkjy/actnow-foundryvtt",
   "manifest": "https://raw.githubusercontent.com/ledkjy/actnow-foundryvtt/main/module.json",
-  "download": "https://github.com/ledkjy/actnow-foundryvtt/releases/download/v1.5.2/actnow-foundryvtt.zip"
+  "download": "https://github.com/ledkjy/actnow-foundryvtt/releases/download/v1.5.3/actnow-foundryvtt.zip"
 }
