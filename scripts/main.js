@@ -20,7 +20,7 @@ Hooks.once("init", () => {
 
 Hooks.on("ready", () => {
   game.socket.on("module.actnow-foundryvtt", handleSocket);
-  console.log("module loaded into ready hook")
+  console.log("module loaded into ready hook");
 });
 
 Hooks.on("renderChatLog", (log, html, data) => {
@@ -63,8 +63,8 @@ function sendActNowRequest() {
 }
 
 function handleSocket(data) {
+  console.log("Socket data received ", data);
   if (data.type === "show") {
-    console.log("inside handle function ", data)
     const { user, id } = data.payload;
     if (window.actNowModalOpen && !game.settings.get("actnow-foundryvtt", "simultaneity")) return;
 
