@@ -16,12 +16,14 @@ Hooks.once("init", () => {
     type: Number,
     default: 30
   });
+  
+  game.socket.on("module.actnow-foundryvtt", handleSocket);
 });
 
-Hooks.on("ready", () => {
-  game.socket.on("module.actnow-foundryvtt", handleSocket);
-  console.log("module loaded into ready hook");
-});
+//Hooks.on("ready", () => {
+//  game.socket.on("module.actnow-foundryvtt", handleSocket);
+//  console.log("module loaded into ready hook");
+//});
 
 Hooks.on("renderChatLog", (log, html, data) => {
   if (!game.user.isGM) {
