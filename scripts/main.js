@@ -1,5 +1,5 @@
 Hooks.once("init", () => {
-  game.settings.register("act-now", "simultaneity", {
+  game.settings.register("actnow-foundryvtt", "simultaneity", {
     name: "Allow Multiple Modals",
     hint: "If enabled, more than one 'Act Now' request can be active at once.",
     scope: "world",
@@ -8,7 +8,7 @@ Hooks.once("init", () => {
     default: false
   });
 
-  game.settings.register("act-now", "cooldown", {
+  game.settings.register("actnow-foundryvtt", "cooldown", {
     name: "Cooldown Between Requests (seconds)",
     hint: "Minimum time between 'Act Now' requests per player.",
     scope: "client",
@@ -19,12 +19,12 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("ready", () => {
-  game.socket.on("module.act-now", handleSocket);
+  game.socket.on("module.actnow-foundryvtt", handleSocket);
 });
 
 Hooks.on("renderChatLog", (log, html, data) => {
   if (!game.user.isGM) {
-    const button = $(`<button class="act-now-button">Act Now!</button>`);
+    const button = $(`<button class="actnow-foundryvtt-button">Act Now!</button>`);
     button.on("click", () => sendActNowRequest());
     html.append(button);
   }
@@ -33,7 +33,7 @@ Hooks.on("renderChatLog", (log, html, data) => {
 let lastClickTime = 0;
 
 function sendActNowRequest() {
-  const cooldown = game.settings.get("act-now", "cooldown");
+  const cooldown = game.settings.get("actnow-foundryvtt", "cooldown");
   const now = Date.now();
   if (now - lastClickTime < cooldown * 1000) {
     ui.notifications.warn(`You must wait ${cooldown} seconds between requests.`);
@@ -47,13 +47,13 @@ function sendActNowRequest() {
     id: randomID()
   };
 
-  const allowMultiple = game.settings.get("act-now", "simultaneity");
+  const allowMultiple = game.settings.get("actnow-foundryvtt", "simultaneity");
   if (!allowMultiple && window.actNowModalOpen) {
     ui.notifications.warn("An 'Act Now' request is already active.");
     return;
   }
 
-  game.socket.emit("module.act-now", { type: "show", payload });
+  game.socket.emit("module.actnow-foundryvtt", { type: "show", payload });
   ChatMessage.create({
     content: `<strong>${game.user.name}</strong> wants to act now!`,
     whisper: []
@@ -63,7 +63,7 @@ function sendActNowRequest() {
 function handleSocket(data) {
   if (data.type === "show") {
     const { user, id } = data.payload;
-    if (window.actNowModalOpen && !game.settings.get("act-now", "simultaneity")) return;
+    if (window.actNowModalOpen && !game.settings.get("actnow-foundryvtt", "simultaneity")) return;
 
     window.actNowModalOpen = true;
     const content = `<p><strong>${user}</strong> wants to act now!</p>`;
@@ -71,7 +71,7 @@ function handleSocket(data) {
       close: {
         label: "Dismiss",
         callback: () => {
-          game.socket.emit("module.act-now", { type: "close", payload: { id } });
+          game.socket.emit("module.actnow-foundryvtt", { type: "close", payload: { id } });
         }
       }
     } : {};
