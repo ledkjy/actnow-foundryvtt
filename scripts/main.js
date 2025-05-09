@@ -34,6 +34,7 @@ Hooks.on("renderChatLog", (log, html, data) => {
 let lastClickTime = 0;
 
 function sendActNowRequest() {
+  console.log("action request sent");
   const cooldown = game.settings.get("actnow-foundryvtt", "cooldown");
   const now = Date.now();
   if (now - lastClickTime < cooldown * 1000) {
