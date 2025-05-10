@@ -21,3 +21,10 @@
   transform: scale(1.05); /* Slight hover effect */
 }
 
+.actnow-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  max-height: 30px; /* Ensures it doesn’t expand */
+}
+
