@@ -5,12 +5,14 @@
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 3px 8px; /* Reduce padding for smaller height */
   font-size: 12px; /* Optional: Adjust font size */
   font-weight: bold;
   cursor: pointer;
   height: auto; /* Ensures it only takes needed height */
-  line-height: 1.2; /* Helps prevent excessive vertical size */
+  height: 24px; /* Adjust to preferred size */
+  min-height: unset;
+  padding: 2px 6px; /* Reduce padding */
+  line-height: normal; /* Prevent unintended stretching */
 }
 
 .act-now-button:hover {

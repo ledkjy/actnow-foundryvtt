@@ -11,7 +11,7 @@ Hooks.once("init", () => {
   game.settings.register("actnow-foundryvtt", "cooldown", {
     name: "Cooldown Between Requests (seconds)",
     hint: "Minimum time between 'Act Now' requests per player.",
-    scope: "client",
+    scope: "world",
     config: true,
     type: Number,
     default: 30
@@ -24,7 +24,7 @@ Hooks.on("ready", () => {
 
 Hooks.on("renderChatLog", (log, html, data) => {
   if (!game.user.isGM && !html.find(".actnow-foundryvtt-button").length) {
-    const button = $(`<button class="actnow-foundryvtt-button">Act Now!</button>`);
+    const button = $(`<div><button class="actnow-foundryvtt-button">Act Now!</button></div>`);
     button.on("click", () => sendActNowRequest());
     html.append(button);
   }
