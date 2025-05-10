@@ -24,7 +24,7 @@ Hooks.on("ready", () => {
 
 Hooks.on("renderChatLog", (log, html, data) => {
   if (!game.user.isGM && !html.find(".actnow-foundryvtt-button").length) {
-    const wrapper = $(`<div class="act-now-wrapper"></div>`);
+    const wrapper = $(`<div class="actnow-wrapper"></div>`);
     const button = $(`<button class="actnow-foundryvtt-button">Act Now!</button>`);
     button.on("click", () => sendActNowRequest());
     wrapper.append(button);
