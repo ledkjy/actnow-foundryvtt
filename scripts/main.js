@@ -16,17 +16,14 @@ Hooks.once("init", () => {
     type: Number,
     default: 30
   });
-  
+});
+
+Hooks.on("ready", () => {
   game.socket.on("module.actnow-foundryvtt", handleSocket);
 });
 
-//Hooks.on("ready", () => {
-//  game.socket.on("module.actnow-foundryvtt", handleSocket);
-//  console.log("module loaded into ready hook");
-//});
-
 Hooks.on("renderChatLog", (log, html, data) => {
-  if (!game.user.isGM) {
+  if (!game.user.isGM && !html.find(".actnow-foundryvtt-button").length) {
     const button = $(`<button class="actnow-foundryvtt-button">Act Now!</button>`);
     button.on("click", () => sendActNowRequest());
     html.append(button);
@@ -48,7 +45,7 @@ function sendActNowRequest() {
   const payload = {
     user: game.user.name,
     timestamp: now,
-    id: randomID()
+    id: randomID() // Ensure `randomID()` is defined elsewhere
   };
 
   const allowMultiple = game.settings.get("actnow-foundryvtt", "simultaneity");
@@ -77,7 +74,7 @@ function handleSocket(data) {
       close: {
         label: "Dismiss",
         callback: () => {
-          game.socket.emit("module.actnow-foundryvtt", { type: "close", payload: { id } });
+        game.socket.emit("module.actnow-foundryvtt", { type: "close", payload: { id } });
         }
       }
     } : {};
@@ -93,9 +90,8 @@ function handleSocket(data) {
   }
 
   if (data.type === "close") {
-    ui.windows.forEach(w => {
-      if (w instanceof Dialog && w.options.title === "Act Now!") w.close();
-    });
+    const actNowModal = Object.values(ui.windows).find(w => w instanceof Dialog && w.options.title === "Act Now!");
+    if (actNowModal) actNowModal.close();
     window.actNowModalOpen = false;
   }
 }
