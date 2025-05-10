@@ -54,20 +54,17 @@ function sendActNowRequest() {
     return;
   }
 
-  game.socket.emit("module.actnow-foundryvtt", { type: "show", payload }, { broadcast: true });
-  handleSocket({ type: "show", payload });
+  game.socket.emit("module.actnow-foundryvtt", { type: "show", payload });
   ChatMessage.create({
     content: `<strong>${game.user.name}</strong> wants to act now!`,
     whisper: []
   });
 }
 
-function handleSocket(data) {
-  console.log("Socket data received ", data);
-  if (data.type === "show") {
-    const { user, id } = data.payload;
-    if (window.actNowModalOpen && !game.settings.get("actnow-foundryvtt", "simultaneity")) return;
+function handleAction (data) {
+    const { user, id } = data;
 
+    if (window.actNowModalOpen && !game.settings.get("actnow-foundryvtt", "simultaneity")) return;
     window.actNowModalOpen = true;
     const content = `<p><strong>${user}</strong> wants to act now!</p>`;
     const buttons = game.user.isGM ? {
@@ -87,11 +84,19 @@ function handleSocket(data) {
       close: () => { window.actNowModalOpen = false; }
     });
     dialog.render(true);
+};
+
+function handleSocketEvent({type, payload}) {
+
+  if (type === "show") {
+    handleAction(payload);
   }
 
-  if (data.type === "close") {
+  if (type === "close") {
     const actNowModal = Object.values(ui.windows).find(w => w instanceof Dialog && w.options.title === "Act Now!");
     if (actNowModal) actNowModal.close();
     window.actNowModalOpen = false;
   }
-}
+};
+
+game.socket.on("module.actnow-foundryvtt", handleSocketEvent);
