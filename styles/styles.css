@@ -1,6 +1,6 @@
 .act-now-button {
   margin: 5px auto;
-  display: inline-block; /* Keeps it from taking full width */
+  display: flex;
   background: #c62828;
   color: white;
   border: none;
