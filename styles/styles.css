@@ -1,20 +1,23 @@
 .actnow-foundryvtt-button {
   margin: 5px auto;
-  display: flex;
-  background: #c62828;
+  display: inline-block;
+  background: linear-gradient(135deg, #c62828, #e53935); /* Smooth gradient effect */
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 12px; /* Optional: Adjust font size */
+  border-radius: 6px; /* Softer rounded corners */
+  padding: 3px 10px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
-  height: auto; /* Ensures it only takes needed height */
-  height: 24px; /* Adjust to preferred size */
+  height: 24px; /* Keeps it compact */
   min-height: unset;
-  padding: 2px 6px; /* Reduce padding */
-  line-height: normal; /* Prevent unintended stretching */
+  line-height: 1.2;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  transition: background 0.3s ease-in-out, transform 0.1s ease-in-out;
 }
 
 .actnow-foundryvtt-button:hover {
-  background: #e53935;
+  background: linear-gradient(135deg, #e53935, #ff5252);
+  transform: scale(1.05); /* Slight hover effect */
 }
+
