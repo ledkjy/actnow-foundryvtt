@@ -54,7 +54,7 @@ function sendActNowRequest() {
     return;
   }
 
-  game.socket.emit("module.actnow-foundryvtt", { type: "show", payload });
+  game.socket.emit("module.actnow-foundryvtt", { type: "show", payload }, { broadcast: true });
   handleSocket({ type: "show", payload });
   ChatMessage.create({
     content: `<strong>${game.user.name}</strong> wants to act now!`,
